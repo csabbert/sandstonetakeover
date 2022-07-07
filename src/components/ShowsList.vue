@@ -1,10 +1,12 @@
 <template>
   <div class="shows-list">
     <ul>
-      <li v-for="show in shows" :key="show.artist">
+      <li v-for="show in sortedShows" :key="show.artist">
         <h2>Artist: {{show.artist}}</h2>
-        <div class="show-time">
+        <div class="start-time">
           <p>Start Time: {{show.start}}</p>
+        </div>
+        <div class="end-time">
           <p>End Time: {{show.end}}</p>
         </div>
       </li>
@@ -14,10 +16,12 @@
 
 <script lang="ts">
 import {
+  computed,
   defineComponent,
   PropType,
 } from '@vue/composition-api';
 import Show from '../types/Show';
+import SortTime from '../types/SortTime';
 
 export default defineComponent({
   props: {
@@ -25,14 +29,27 @@ export default defineComponent({
       required: true,
       type: Array as PropType<Show[]>,
     },
+    sort: {
+      required: true,
+      type: String as PropType<SortTime>,
+    },
+  },
+  setup(props) {
+    const sortedShows = computed(() => {
+      return [...props.shows].sort((a: Show, b: Show) => {
+        return a[props.sort] > b[props.sort] ? 1 : -1;
+      });
+    });
+
+    return { sortedShows };
   },
 });
 </script>
 
 <style scoped>
   .shows-list {
-    max-width: 960px;
-    margin: 40px auto;
+    max-width: 550px;
+    margin: 20px auto;
   }
   .shows-list ul {
     padding: 0;
@@ -47,13 +64,19 @@ export default defineComponent({
   }
   .shows-list h2 {
     font-weight: bold;
-    margin: 0 0 10px;
+    text-align: left;
+    font-size: large;
+    margin: 0 10px 10px;
     text-transform: capitalize;
   }
-  .show-time {
-    display: flex;
+  .start-time {
+    text-align: left;
+    font-size: large;
+    margin: 5px 30px;
   }
-  .show-time p {
-    margin: 10px 50px;
+  .end-time {
+    text-align: left;
+    font-size: large;
+    margin: 0 30px;
   }
 </style>

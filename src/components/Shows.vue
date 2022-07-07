@@ -1,12 +1,6 @@
 <template>
   <div class="Shows">
-    Shows
-
-    <!-- <div v-for="item in data" :key="item">
-      <p>{{item.artist}}</p>
-      <p>{{item.start}}</p>
-      <p>{{item.end}}</p>
-    </div> -->
+    Sandstone Takeover
 
   </div>
 </template>
@@ -20,15 +14,10 @@ export default defineComponent({
   props: {
     msg: String,
   },
-  /* data() {
-    return {
-      data,
-    };
-  }, */
 });
 </script>
 
 <style lang="sass" scoped>
 .Shows
-  font-size: 30px
+  font-size: 40px
 </style>
