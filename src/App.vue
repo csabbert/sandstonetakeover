@@ -4,10 +4,10 @@
       <h1>Sandstone Takeover</h1>
     </div>
     <header>
-      <div class="sort">
-        <button @click="sortClick('artist')">Sort Alphabetically</button>&nbsp;
-        <button @click="sortClick('start')">Sort Chronologically</button>&nbsp;
-        <button>Show Conflicts</button>
+      <div class="sort-buttons">
+        <button @click="sortClick('artist')">Sort Alphabetically</button>&nbsp;&nbsp;&nbsp;
+        <button @click="sortClick('start')">Sort Chronologically</button>&nbsp;&nbsp;&nbsp;
+        <button>Display Conflicts</button>
       </div>
     </header>
     <ShowsList :shows="shows" :sort="sort" />
@@ -19,10 +19,9 @@ import {
   ref,
   defineComponent,
 } from '@vue/composition-api';
-// import Vue from 'vue';
 import ShowsList from './components/ShowsList.vue';
-import Show from './types/Show';
-import SortTime from './types/SortTime';
+import Show from './Interfaces/Show';
+import SortShow from './types/SortShow';
 import data from './assets/data.json';
 
 export default defineComponent({
@@ -30,8 +29,8 @@ export default defineComponent({
   components: { ShowsList },
   setup() {
     const shows = ref<Show[]>(data);
-    const sort = ref<SortTime>('start');
-    const sortClick = (term:SortTime) => {
+    const sort = ref<SortShow>('artist');
+    const sortClick = (term: SortShow) => {
       sort.value = term;
     };
     return { shows, sort, sortClick };
@@ -54,17 +53,17 @@ title {
 header {
   text-align: center;
 }
-header.sort {
+.sort-buttons {
   margin-top: 20px;
 }
 button {
-  margin: 0 10px;
+  margin-right: 20px;
   color: white;
   border: 0px solid steelblue;
   background: steelblue;
   padding: 8px 14px;
   border-radius: 6px;
-  cursor: pointer;
+  cursor: url('/utilities/cursor.cur'), pointer;
   font-weight: bold;
   font-size: medium;
   transition-duration: 0.2s;

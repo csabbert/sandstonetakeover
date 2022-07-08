@@ -1,7 +1,7 @@
 <template>
   <div class="shows-list">
     <transition-group name="list" tag="ul">
-      <li v-for="show in sortedShows" :key="show.start">
+      <li v-for="show in sortedShows" :key="show.artist">
         <h2>Artist: {{show.artist}}</h2>
         <div class="start-time">
           <p>Start Time: {{show.start}}</p>
@@ -20,8 +20,8 @@ import {
   defineComponent,
   PropType,
 } from '@vue/composition-api';
-import Show from '../types/Show';
-import SortTime from '../types/SortTime';
+import Show from '../Interfaces/Show';
+import SortShow from '../types/SortShow';
 
 export default defineComponent({
   props: {
@@ -31,7 +31,7 @@ export default defineComponent({
     },
     sort: {
       required: true,
-      type: Date as PropType<SortTime>,
+      type: String as PropType<SortShow>,
     },
   },
   setup(props) {
@@ -46,7 +46,7 @@ export default defineComponent({
 
 <style scoped>
   .shows-list {
-    max-width: 550px;
+    max-width: 600px;
     margin: 20px auto;
   }
   .shows-list ul {
