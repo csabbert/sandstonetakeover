@@ -4,4 +4,4 @@ interface Show {
     end: string
 }
 
-export default Show
+export default Show;

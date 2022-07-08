@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <Shows />
+    <div class="title">
+      <h1>Sandstone Takeover</h1>
+    </div>
     <header>
       <div class="sort">
-        <button @click="handleClick('start')">Sort Shows</button>
-        &emsp;&emsp;
+        <button @click="sortClick('artist')">Sort Alphabetically</button>&nbsp;
+        <button @click="sortClick('start')">Sort Chronologically</button>&nbsp;
         <button>Show Conflicts</button>
       </div>
     </header>
@@ -13,30 +15,26 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { ref } from '@vue/composition-api';
-import Shows from './components/Shows.vue';
+import {
+  ref,
+  defineComponent,
+} from '@vue/composition-api';
+// import Vue from 'vue';
 import ShowsList from './components/ShowsList.vue';
 import Show from './types/Show';
 import SortTime from './types/SortTime';
 import data from './assets/data.json';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'App',
-  components: {
-    Shows,
-    ShowsList,
-  },
+  components: { ShowsList },
   setup() {
     const shows = ref<Show[]>(data);
-
     const sort = ref<SortTime>('start');
-
-    const handleClick = (term:SortTime) => {
+    const sortClick = (term:SortTime) => {
       sort.value = term;
     };
-
-    return { shows, handleClick, sort };
+    return { shows, sort, sortClick };
   },
 });
 </script>
@@ -50,9 +48,11 @@ export default Vue.extend({
   color: #2c3e50;
   margin-top: 60px;
 }
+title {
+    font-size: 40px;
+}
 header {
   text-align: center;
-  margin-top: 30px;
 }
 header.sort {
   margin-top: 20px;
@@ -67,7 +67,6 @@ button {
   cursor: pointer;
   font-weight: bold;
   font-size: medium;
-
   transition-duration: 0.2s;
 }
 button:hover {
